@@ -1,0 +1,427 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    background: #050008;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(circle at 50% 45%,
+            rgba(255, 0, 90, 0.15),
+            transparent 35%),
+        linear-gradient(135deg,
+            #020006,
+            #120015,
+            #260019,
+            #08000f);
+
+    background-size: 300% 300%;
+
+    animation:
+        backgroundStart 2s ease forwards,
+        backgroundMove 10s ease infinite;
+
+    z-index: -5;
+}
+
+@keyframes backgroundStart {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes backgroundMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* =========================
+   PARTICLE CANVAS
+========================= */
+
+#heartCanvas {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+/* =========================
+   FINAL HEART
+========================= */
+
+.final-heart {
+    position: fixed;
+
+    left: 50%;
+    top: 43%;
+
+    transform: translate(-50%, -50%);
+
+    opacity: 0;
+
+    z-index: 2;
+
+    animation: showFinalHeart 1.5s ease forwards;
+    animation-delay: 4.8s;
+}
+
+.heart {
+    width: 150px;
+    height: 150px;
+
+    position: relative;
+
+    background: linear-gradient(135deg,
+            #ff1744,
+            #ff0055,
+            #b90038);
+
+    transform: rotate(-45deg);
+
+    box-shadow:
+        -10px 10px 30px rgba(255, 0, 70, 0.8),
+        0 0 30px #ff004c,
+        0 0 60px rgba(255, 0, 80, 0.8),
+        inset 15px -15px 25px rgba(80, 0, 30, 0.45),
+        inset -8px 8px 20px rgba(255, 255, 255, 0.3);
+
+    animation: heartbeat 1.15s ease-in-out infinite;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    background: inherit;
+}
+
+.heart::before {
+    top: -75px;
+    left: 0;
+
+    box-shadow:
+        inset -5px 12px 18px rgba(255, 255, 255, 0.25);
+}
+
+.heart::after {
+    left: 75px;
+    top: 0;
+
+    box-shadow:
+        inset 12px -5px 20px rgba(80, 0, 30, 0.3);
+}
+
+/* Heart shine */
+
+.heart::after {
+    filter: drop-shadow(10px 10px 12px rgba(0, 0, 0, .2));
+}
+
+@keyframes showFinalHeart {
+    0% {
+        opacity: 0;
+        filter: blur(20px);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform:
+            rotate(-45deg) scale(1);
+    }
+
+    15% {
+        transform:
+            rotate(-45deg) scale(1.12);
+    }
+
+    30% {
+        transform:
+            rotate(-45deg) scale(1);
+    }
+
+    45% {
+        transform:
+            rotate(-45deg) scale(1.08);
+    }
+
+    60% {
+        transform:
+            rotate(-45deg) scale(1);
+    }
+}
+
+/* =========================
+   LOVE TEXT
+========================= */
+
+.love-content {
+    position: fixed;
+
+    width: 100%;
+
+    top: 67%;
+
+    text-align: center;
+
+    opacity: 0;
+
+    transform: translateY(30px);
+
+    animation: showText 1.5s ease forwards;
+    animation-delay: 6.2s;
+
+    z-index: 5;
+}
+
+.love-content h1 {
+    font-size: clamp(42px, 9vw, 75px);
+
+    font-family:
+        "Brush Script MT",
+        cursive;
+
+    color: white;
+
+    text-shadow:
+        0 0 5px white,
+        0 0 15px #ff4d7d,
+        0 0 30px #ff0055,
+        0 0 60px #ff0055;
+}
+
+.love-content p {
+    margin-top: 8px;
+
+    font-size: 17px;
+
+    letter-spacing: 4px;
+
+    color: #ffc4d6;
+}
+
+@keyframes showText {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(30px) scale(.9);
+
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+
+        filter: blur(0);
+    }
+}
+
+/* =========================
+   MUSIC BUTTON
+========================= */
+
+#musicBtn {
+    position: fixed;
+
+    left: 50%;
+    bottom: 7%;
+
+    transform: translateX(-50%) scale(.7);
+
+    padding: 13px 28px;
+
+    border-radius: 50px;
+
+    border:
+        1px solid rgba(255, 255, 255, .35);
+
+    background:
+        rgba(255, 0, 80, .15);
+
+    backdrop-filter: blur(10px);
+
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    box-shadow:
+        0 0 20px rgba(255, 0, 90, .4);
+
+    animation:
+        showButton 1s ease forwards;
+
+    animation-delay: 7.5s;
+
+    z-index: 10;
+}
+
+@keyframes showButton {
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(-50%) scale(1);
+    }
+}
+
+#musicBtn:hover {
+    background:
+        rgba(255, 0, 80, .35);
+
+    box-shadow:
+        0 0 35px #ff0055;
+}
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+#floatingHearts {
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+.floating-heart {
+    position: absolute;
+
+    bottom: -40px;
+
+    color: #ff3971;
+
+    text-shadow:
+        0 0 10px #ff0055,
+        0 0 20px #ff0055;
+
+    animation:
+        floatHeart linear forwards;
+}
+
+@keyframes floatHeart {
+
+    0% {
+        transform:
+            translateY(0) rotate(0deg) scale(.4);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: .8;
+    }
+
+    100% {
+        transform:
+            translateY(-110vh) rotate(360deg) scale(1.2);
+
+        opacity: 0;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .heart {
+        width: 110px;
+        height: 110px;
+    }
+
+    .heart::before,
+    .heart::after {
+        width: 110px;
+        height: 110px;
+    }
+
+    .heart::before {
+        top: -55px;
+    }
+
+    .heart::after {
+        left: 55px;
+    }
+
+    .love-content {
+        top: 64%;
+    }
+
+    .love-content p {
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
+
+    #musicBtn {
+        bottom: 8%;
+    }
+}
